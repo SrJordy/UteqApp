@@ -45,7 +45,6 @@ const MenuComple = () => {
     <View style={stylesMenuR.header}>
       <Text style={stylesMenuR.headerText}>Menú</Text>
     </View>
-
  
     <View>
       <TouchableOpacity onPress={toggleSectionGeneral}>
