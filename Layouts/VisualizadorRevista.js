@@ -123,7 +123,7 @@ const ViewRevista = () => {
             onButtonPress={() => registerView(`Edición ${moment().month(revista.mes - 1).format('MMMM')} ${revista.anio}`)}
           />
         ))}
-      </ScrollView>
+    
       <View style={stylesVisRevistas.pagination}>
         <TouchableOpacity style={stylesVisRevistas.paginationButton} onPress={handleLoadPrevious} disabled={currentPage === 1}>
           <Text style={stylesVisRevistas.paginationButtonText}>Anterior</Text>
@@ -133,6 +133,7 @@ const ViewRevista = () => {
           <Text style={stylesVisRevistas.paginationButtonText}>Siguiente</Text>
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </View>
   );
 };

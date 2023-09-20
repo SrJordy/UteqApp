@@ -114,7 +114,7 @@ const ViewNoticias = () => {
       const preferenciasUsuario = JSON.parse(responseUserPreferences.data);
       
       // Extraer los nombres de las facultades de las preferencias del usuario
-      const facultadNombresPreferencias = preferenciasUsuario.usuarioFacultadesrp.map(pref => pref.FacultadNombre);
+      const facultadNombresPreferencias = preferenciasUsuario.usuarioFacultadesrp.map(pref => pref.facultad_nombre);
       
       // Si el usuario tiene preferencias, filtramos las noticias de entity 2 según las preferencias
       if (facultadNombresPreferencias.length > 0) {

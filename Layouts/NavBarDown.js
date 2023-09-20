@@ -17,7 +17,6 @@ import ProfileScreen from "./Perfil";
 import FacuDetails from "./Mostrarfacultad";
 import ViewsApp from "./Estadisticas";
 import axios from 'axios';
-import RadiacionScreen from "./Radiacion";
 import YoutubeCard from "./VisualizadorYT";
 
 const Tab = createBottomTabNavigator();
@@ -67,7 +66,7 @@ function MyTabs() {
         screenOptions={{
           tabBarActiveTintColor: "#46741e",
           tabBarInactiveTintColor: "#d5d3e0",
-          tabBarStyle: [{ display: "flex" }, null],
+          tabBarStyle: [{ display: "flex",  backgroundColor: '#f5f6fa' }, null],
         }}
       >
         <Tab.Screen
@@ -127,19 +126,6 @@ function MyTabs() {
             ),
           }}
         />
-       {/*
-        {/*El color del circulo no se como le va a hacer cambiar, puede hacer un metodo q jale del webservice un rango y segun ese rango
-          establecer el color 
-        <Tab.Screen
-          name="Radiación"
-          component={RadiacionScreen}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="circle" color={color} size={26} />
-            ),
-          }}
-        />*/}
       </Tab.Navigator>
     </>
   );

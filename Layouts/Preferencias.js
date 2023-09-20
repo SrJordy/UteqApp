@@ -62,7 +62,8 @@ export function Prefer() {
       const markCheckedItems = async () => {
         const userPreferences = await fetchUserPreferences();
   
-        const cleanedUserPreferences = userPreferences.map((preference) => preference.trim());
+        const cleanedUserPreferences = userPreferences.map((preference) => preference?.trim()).filter(Boolean);
+
 
         const checkedFacultades = facultades.filter((facultad) =>
           cleanedUserPreferences.includes(facultad.dpNombre.trim())
@@ -88,7 +89,7 @@ export function Prefer() {
       const data = await response.json();
   
       if (Array.isArray(data.usuarioFacultadesrp)) {
-        return data.usuarioFacultadesrp.map((pref) => pref.FacultadNombre);
+        return data.usuarioFacultadesrp.map((pref) => pref.facultad_nombre);
       } else {
         return [];
       }
@@ -130,7 +131,7 @@ export function Prefer() {
       const facultadData = facultades.find(facultad => facultad.dpNombre === item);
       return {
         UsuarioID: user.ID,
-        FacultadNombre: facultadData.dpNombre
+        facultad_nombre: facultadData.dpNombre
       };
     });
   

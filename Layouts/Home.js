@@ -456,14 +456,14 @@ const Home = () => {
         {renderTiktok()}
 
         <TouchableOpacity style={styleshome.sectionHeader} onPress={() => handleSectionPress('Resumen Semanal')}>
-          <FontAwesome5 name="youtube" size={28} color="#46741e" />
+          <FontAwesome5 name="youtube" size={28} color="#46741e"  />
           <Text style={styleshome.sectionTitle}>Resumen Semanal</Text>
         </TouchableOpacity>
         {renderYoutube()}
       </ScrollView>
 
       <TouchableOpacity style={styleshome.mainButton} onPress={toggleMenu}>
-        <FontAwesome5 name="ellipsis-v" size={24} color="#ffffff" />
+        <FontAwesome5 name="ellipsis-v" size={24} color="#ffffff"  />
       </TouchableOpacity>
 
       <Modal isVisible={isMenuVisible} onBackdropPress={closeMenu}>

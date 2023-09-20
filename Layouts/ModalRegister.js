@@ -63,7 +63,7 @@ const RegistroModal = ({ visible, onClose }) => {
               placeholderTextColor="gray"
               style={stylesRegister.textInput}
               onChangeText={(value) => {
-                if (isValidName(value)) {
+                if (isValidName(value) || value === "") {
                   setNombre(value);
                 }
               }}
@@ -77,7 +77,7 @@ const RegistroModal = ({ visible, onClose }) => {
               placeholderTextColor="gray"
               style={stylesRegister.textInput}
               onChangeText={(value) => {
-                if (isValidApellido(value)) {
+                if (isValidApellido(value) || value === "") {
                   setApellido(value);
                 }
               }}
@@ -316,7 +316,6 @@ const RegistroModal = ({ visible, onClose }) => {
     setMessage('');
     setVerificationCode('');
     setUserId(null);
-
   }
   return (
     <>

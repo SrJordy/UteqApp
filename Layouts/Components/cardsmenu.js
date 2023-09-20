@@ -5,53 +5,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export const BotonContenido = ({ onPress, usuarioTipo }) => {
-  if (usuarioTipo !== 'Administrador') {
-    return null;
-  }
-  return (
-    <TouchableOpacity style={styles.boton} onPress={onPress}>
-      <Ionicons name="md-document" size={60} color="#46741e" />
-      <Text style={styles.titulo}>Contenido</Text>
-    </TouchableOpacity>
-  );
-};
-export const BotonCarreras = ({ onPress, usuarioTipo }) => {
-  if (usuarioTipo !== 'Administrador') {
-    return null;
-  }
-  return (
-    <TouchableOpacity style={styles.boton} onPress={onPress}>
-      <Ionicons name="book" size={60} color="#46741e" />
-      <Text style={styles.titulo}>Carreras</Text>
-    </TouchableOpacity>
-  );
-};
-export const BotonFacultades = ({ onPress, usuarioTipo }) => {
-  if (usuarioTipo !== 'Administrador') {
-    return null;
-  }
 
-  return (
-    <TouchableOpacity style={styles.boton} onPress={onPress}>
-      <Ionicons name="md-school" size={60} color="#46741e" />
-      <Text style={styles.titulo}>Facultades</Text>
-    </TouchableOpacity>
-  );
-};
 
-export const BotonUsuarios = ({ onPress, usuarioTipo }) => {
-  if (usuarioTipo !== 'Administrador') {
-    return null;
-  }
 
-  return (
-    <TouchableOpacity style={styles.boton} onPress={onPress}>
-      <Ionicons name="md-person" size={60} color="#46741e" />
-      <Text style={styles.titulo}>Administradores</Text>
-    </TouchableOpacity>
-  );
-};
+
 
 export const BotonEstadisticas = ({ onPress, usuarioTipo }) => {
   return (

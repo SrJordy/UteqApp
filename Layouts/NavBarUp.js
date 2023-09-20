@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback,useRef } from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet, Dimensions, Modal, Pressable, Linking, ImageBackground, StatusBar, Image, ScrollView, Alert, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
@@ -54,7 +54,7 @@ const NavigationBar = () => {
   const [accessToken, setAccessToken] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-/* ============================= CONSULTA DE LAS FACULTADES============================== */
+  /* ============================= CONSULTA DE LAS FACULTADES============================== */
   const fetchFacultades = useCallback(async () => {
     if (!accessToken) return;
 
@@ -87,13 +87,13 @@ const NavigationBar = () => {
       username: '_x1userdev',
       password: 'LineGold179#5ft2'
     }))
-    .then((response) => {
-      const accessToken = JSON.parse(response.data).accessToken;
-      setAccessToken(accessToken);
-    })
-    .catch((error) => {
-      console.error('Error al autenticarse:', error);
-    });
+      .then((response) => {
+        const accessToken = JSON.parse(response.data).accessToken;
+        setAccessToken(accessToken);
+      })
+      .catch((error) => {
+        console.error('Error al autenticarse:', error);
+      });
   };
   useEffect(() => {
     authenticate();
@@ -112,7 +112,7 @@ const NavigationBar = () => {
     console.log('Buscar:', searchText);
 
     setIsModalOpen(false);
-//revisar esto 
+    //revisar esto 
     try {
       const authenticate = async () => {
         try {
@@ -168,76 +168,76 @@ const NavigationBar = () => {
       const accessToken = await authenticate();
       const filteredRevistas = await fetchRevistaData(accessToken);
 
-      
-      
-      
+
+
+
       /* ============================= CONSULTA DE LAS NOTICIAS FILTRADAS POR TITULO============================== */
       const fetchNoticiasData = async (tituloFilter) => {
         try {
-            const response = await RNFetchBlob.config({
-                trusty: true,
-            }).fetch(
-                'GET',
-                'https://apiws.uteq.edu.ec/h6RPoSoRaah0Y4Bah28eew/functions/information/entity/2',
-                {
-                    Authorization: `Bearer ${accessToken}`,
-                }
-            );
-    
-            let dataEntity2 = await response.json();
-            
-            // Obtén los datos de entity7
-            const responseEntity7 = await RNFetchBlob.config({ trusty: true }).fetch('GET', 'https://apiws.uteq.edu.ec/h6RPoSoRaah0Y4Bah28eew/functions/information/entity/7', { Authorization: `Bearer ${accessToken}`, });
-            const dataEntity7 = await responseEntity7.json();
-            
-            // Obtén las preferencias del usuario
-            const responseUserPreferences = await RNFetchBlob.config({ trusty: true }).fetch('GET', `https://noticias-uteq-4c62c24e7cc5.herokuapp.com/preferencias/getallrp/${user.ID}`,);
-            const preferenciasUsuario = await responseUserPreferences.json();
-    
-            // Filtra las noticias de entity2 que no están en entity7
-            const dpNombresEntity7 = dataEntity7.map(noticia => noticia.dpNombre);
-            let noticiasFiltradas2 = dataEntity2.filter(noticia => !dpNombresEntity7.includes(noticia.objDepartamento.dpNombre));
-    
-            // Extrae los nombres de las facultades de las preferencias del usuario
-            const facultadNombresPreferencias = preferenciasUsuario.usuarioFacultadesrp.map(pref => pref.FacultadNombre);
-    
-            // Filtra las noticias según las preferencias del usuario
-            if (facultadNombresPreferencias.length > 0) {
-                noticiasFiltradas = dataEntity2.filter(noticia => facultadNombresPreferencias.includes(noticia.objDepartamento.dpNombre));
-                noticiasFiltradas = noticiasFiltradas.concat(noticiasFiltradas2);
-            } else {
-                // Si el usuario no tiene preferencias o no existe, mostramos todas las noticias de entity 2 sin filtrar
-                noticiasFiltradas = dataEntity2;
+          const response = await RNFetchBlob.config({
+            trusty: true,
+          }).fetch(
+            'GET',
+            'https://apiws.uteq.edu.ec/h6RPoSoRaah0Y4Bah28eew/functions/information/entity/2',
+            {
+              Authorization: `Bearer ${accessToken}`,
             }
-    
-            const noticiasResults = noticiasFiltradas.filter(item =>
-                item.ntTitular.toLowerCase().includes(tituloFilter.toLowerCase())
-            ).map(item => ({
-                titulo: item.ntTitular,
-                departamento: item.objDepartamento.dpNombre,
-                imagen: `https://uteq.edu.ec/assets/images/news/pagina/${item.ntUrlPortada}`,
-                url: `https://uteq.edu.ec/es/comunicacion/noticia/${item.ntUrlNoticia}`,
-                tipo: 'Noticias',
-            }));
-    
-            return noticiasResults;
-    
-        } catch (error) {
-            console.error('Error al obtener los datos de noticias:', error);
-            return [];
-        }
-    };
-    
-    
+          );
 
-      
+          let dataEntity2 = await response.json();
+
+          // Obtén los datos de entity7
+          const responseEntity7 = await RNFetchBlob.config({ trusty: true }).fetch('GET', 'https://apiws.uteq.edu.ec/h6RPoSoRaah0Y4Bah28eew/functions/information/entity/7', { Authorization: `Bearer ${accessToken}`, });
+          const dataEntity7 = await responseEntity7.json();
+
+          // Obtén las preferencias del usuario
+          const responseUserPreferences = await RNFetchBlob.config({ trusty: true }).fetch('GET', `https://noticias-uteq-4c62c24e7cc5.herokuapp.com/preferencias/getallrp/${user.ID}`,);
+          const preferenciasUsuario = await responseUserPreferences.json();
+
+          // Filtra las noticias de entity2 que no están en entity7
+          const dpNombresEntity7 = dataEntity7.map(noticia => noticia.dpNombre);
+          let noticiasFiltradas2 = dataEntity2.filter(noticia => !dpNombresEntity7.includes(noticia.objDepartamento.dpNombre));
+
+          // Extrae los nombres de las facultades de las preferencias del usuario
+          const facultadNombresPreferencias = preferenciasUsuario.usuarioFacultadesrp.map(pref => pref.facultad_nombre);
+
+          // Filtra las noticias según las preferencias del usuario
+          if (facultadNombresPreferencias.length > 0) {
+            noticiasFiltradas = dataEntity2.filter(noticia => facultadNombresPreferencias.includes(noticia.objDepartamento.dpNombre));
+            noticiasFiltradas = noticiasFiltradas.concat(noticiasFiltradas2);
+          } else {
+            // Si el usuario no tiene preferencias o no existe, mostramos todas las noticias de entity 2 sin filtrar
+            noticiasFiltradas = dataEntity2;
+          }
+
+          const noticiasResults = noticiasFiltradas.filter(item =>
+            item.ntTitular.toLowerCase().includes(tituloFilter.toLowerCase())
+          ).map(item => ({
+            titulo: item.ntTitular,
+            departamento: item.objDepartamento.dpNombre,
+            imagen: `https://uteq.edu.ec/assets/images/news/pagina/${item.ntUrlPortada}`,
+            url: `https://uteq.edu.ec/es/comunicacion/noticia/${item.ntUrlNoticia}`,
+            tipo: 'Noticias',
+          }));
+
+          return noticiasResults;
+
+        } catch (error) {
+          console.error('Error al obtener los datos de noticias:', error);
+          return [];
+        }
+      };
+
+
+
+
       const noticiasResults = await fetchNoticiasData(searchText);
-      
-      
+
+
       /* ============================= CONSULTA DE LOS TIKTOKS FILTRADAS POR TITULO============================== */
       const fetchTikTokData = async (accessToken, searchText) => {
         if (!accessToken) return [];
-      
+
         try {
           const response = await RNFetchBlob.config({
             trusty: true,
@@ -248,9 +248,9 @@ const NavigationBar = () => {
               Authorization: `Bearer ${accessToken}`,
             }
           );
-      
+
           const responseData = await response.json();
-      
+
           const tiktokResults = responseData.filter(item =>
             item.titulo && item.titulo.toLowerCase().includes(searchText.toLowerCase())
           ).map(item => ({
@@ -259,7 +259,7 @@ const NavigationBar = () => {
             url: item.urlvideo1,
             tipo: 'TikTok',
           }));
-      
+
           return tiktokResults;
         } catch (error) {
           console.error('Error al obtener los datos de TikTok:', error);
@@ -280,10 +280,10 @@ const NavigationBar = () => {
               Authorization: `Bearer ${accessToken}`,
             }
           );
-      
+
           const responseData = await response.json();
 
-      
+
           const videosYTResults = responseData.filter(item =>
             item.titulo && item.titulo.toLowerCase().includes(searchText.toLowerCase())
           ).map(item => ({
@@ -292,16 +292,16 @@ const NavigationBar = () => {
             url: item.urlvideo1, // Usamos el campo urlvideo1 para obtener la URL del video
             tipo: 'VideosYT',
           }));
-      
+
           return videosYTResults;
         } catch (error) {
           console.error('Error al obtener los datos de VideosYT:', error);
           return [];
         }
       };
-      
+
       const videosYTResults = await fetchVideosYTData(searchText);
-      
+
       setIsLoading(false);
       const combinedResults = [...filteredRevistas, ...noticiasResults, ...tiktokResults, ...videosYTResults];
 
@@ -384,20 +384,28 @@ const NavigationBar = () => {
     Linking.openURL('https://www.instagram.com/uteq.ec/?utm_medium=copy_link');
   }
 
+
+
   const renderModalContent = () => {
     const months = [
-      "enero", "febrero", "marzo", "abril", "mayo", 
-      "junio", "julio", "agosto", "septiembre", 
+      "enero", "febrero", "marzo", "abril", "mayo",
+      "junio", "julio", "agosto", "septiembre",
       "octubre", "noviembre", "diciembre"
     ];
-    
-    const totalPages = Math.ceil(searchResults.length / itemsPerPage);
-  
+
+    const scrollRef = useRef(null);
+
     const handlePageChange = (newPage) => {
       if (newPage >= 1 && newPage <= totalPages) {
         setCurrentPage(newPage);
+        if (scrollRef.current) {
+          scrollRef.current.scrollTo({ y: 0, animated: true });
+        }
       }
     };
+
+    const totalPages = Math.ceil(searchResults.length / itemsPerPage);
+
   
     if (showFacuDetails && selectedFacultad) {
       return (
@@ -406,18 +414,13 @@ const NavigationBar = () => {
     } else if (searchResults.length === 0) {
       return (
         <View style={styles.searchResultsContainer}>
-          <Text style={styles.modalTitle}>No se encontraron resultados</Text>
-          <TouchableOpacity 
-            style={styles.modalCloseButton} 
-            onPress={handleCloseSearchModal}
-          >
-            <Text style={styles.modalCloseButtonText}>Cerrar</Text>
-          </TouchableOpacity>
+          <Text style={styles.modalTitleClose}>No se encontraron resultados</Text>
+          
         </View>
       );
     } else {
       return (
-        <ScrollView style={styles.searchResultsContainer}>
+        <ScrollView style={styles.searchResultsContainer} ref={scrollRef}>
           {/* Mostrar resultados de búsqueda */}
           {searchResults
             .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
@@ -446,12 +449,16 @@ const NavigationBar = () => {
                 </Text>
               </TouchableOpacity>
             ))}
-          
+
           {/* Controladores de paginación */}
           <View style={styles.paginationContainer}>
             <TouchableOpacity
               disabled={currentPage === 1}
               onPress={() => handlePageChange(currentPage - 1)}
+              style={[
+                styles.paginationButton,
+                { opacity: currentPage === 1 ? 0.5 : 1 }  // Disminuye la opacidad si el botón está desactivado
+              ]}
             >
               <Text style={styles.paginationText}>Anterior</Text>
             </TouchableOpacity>
@@ -461,6 +468,10 @@ const NavigationBar = () => {
             <TouchableOpacity
               disabled={currentPage === totalPages}
               onPress={() => handlePageChange(currentPage + 1)}
+              style={[
+                styles.paginationButton,
+                { opacity: currentPage === totalPages ? 0.5 : 1 }  // Disminuye la opacidad si el botón está desactivado
+              ]}
             >
               <Text style={styles.paginationText}>Siguiente</Text>
             </TouchableOpacity>
@@ -469,7 +480,7 @@ const NavigationBar = () => {
       );
     }
   };
-  
+
 
   return (
     <>
@@ -562,6 +573,7 @@ const NavigationBar = () => {
           </ImageBackground>
         </View>
       </Modal>
+
       <Modal visible={isInfoModalOpen} animationType="slide" transparent={true}>
         <View style={styles.infoModalContainer}>
           <View style={styles.infoModalContent}>
@@ -681,25 +693,38 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    padding: 10
+    padding: 1
   },
   closeSearchModalButton: {
-    position: 'absolute',
+    position: 'absolute', // Restauramos el valor 'absolute' para permitir el posicionamiento con 'top' y 'right'
     top: 10,
-    right: 10,
+    left: 10,
     padding: 10,
+    backgroundColor: '#46741e', // Añadimos un color de fondo agradable
+    borderRadius: 10, // Redondeamos las esquinas para un diseño más suave
+    alignItems: 'center', // Aseguramos que el contenido esté centrado
+    justifyContent: 'center', // Aseguramos que el contenido esté centrado verticalmente
+    shadowColor: "#000", // Añadimos una sombra para dar una sensación elevada
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25, // Controlamos la opacidad de la sombra
+    shadowRadius: 3.84, // Controlamos el radio de la sombra
+    elevation: 5, // Añadimos elevación en Android para un efecto de sombra
   },
+  
   searchResultsContainer: {
-    backgroundColor: '#ffffff',
     borderRadius: 10,
-    alignContent:'center',
-    padding:20,
+    alignContent: 'center',
+    padding: width * 0.07,
     width: width * 0.95,
     maxHeight: height * 0.85,
   },
   searchResultItem: {
     fontSize: 18,
     padding: 10,
+    textAlign: 'center'
   },
   modalContainer: {
     flex: 1,
@@ -726,6 +751,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
   },
+  modalTitleClose: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+    color:'white'
+  },
   modalSubtitle: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -736,7 +768,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   modalCloseButton: {
-    backgroundColor: '#46b41e',
+    backgroundColor: '#46741e',
     borderRadius: 8,
     padding: 10,
     alignSelf: 'center',
@@ -1006,20 +1038,11 @@ const styles = StyleSheet.create({
   },
   paginationContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 20,
-    paddingBottom:20,
-    paddingTop:-20,
-    backgroundColor: '#fff',
+    justifyContent: 'center',
+    padding: width * 0.01,  // 5% del ancho de la pantalla
+    paddingBottom: height * 0.05,  // 2% de la altura de la pantalla
+    paddingTop: height * 0.01,  // 2% de la altura de la pantalla
     borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
   paginationButton: {
     padding: 10,
@@ -1033,8 +1056,15 @@ const styles = StyleSheet.create({
   },
   paginationText: {
     fontSize: 16,
-    color: 'black',
+    color: 'white',
     alignSelf: 'center',
+  },
+  paginationButton: {
+    padding: 10,
+    margin: 5,
+    backgroundColor: '#46741e',
+    borderRadius: 5,
+    alignItems: 'center',
   },
 
 });

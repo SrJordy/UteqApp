@@ -300,7 +300,7 @@ reumeContainer: {
   },
   container: {
     flex: 1,
-    // Agrega aquí estilos adicionales para el contenedor principal si es necesario
+    backgroundColor: '#f5f6fa',
   },
   mainButtonContainer: {
     position: 'absolute',
@@ -2994,6 +2994,11 @@ export const stylesMostrarF = StyleSheet.create({
     borderRadius: 10,
     elevation: 3,
   },
+  carreraImageContainer: {
+    alignItems: 'center', // Centra la imagen horizontalmente
+    justifyContent: 'center', // Centra la imagen verticalmente
+    overflow: 'hidden', // Asegura que la imagen no desborde el contenedor
+  },
   carreraImage: {
     width: '100%',
     height: isSmallDevice ? 120 : 150,
@@ -3009,7 +3014,7 @@ export const stylesMostrarF = StyleSheet.create({
     color: '#555',
   },
   websiteButton: {
-    backgroundColor: '#ffd700',
+    backgroundColor: '#46741e',
     flex: 0.48, // Esto hará que el botón ocupe casi la mitad del espacio disponible, dejando un poco de margen
     padding: 10,
     borderRadius: 10,
@@ -3020,11 +3025,12 @@ export const stylesMostrarF = StyleSheet.create({
     fontSize: isSmallDevice ? 14 : 16,
   },
   closeButton: {
-    backgroundColor: '#4caf50',
+    backgroundColor: '#ff4757',
     flex: 0.48, // Esto hará que el botón ocupe casi la mitad del espacio disponible, dejando un poco de margen
     padding: 10,
     borderRadius: 10,
     alignItems: 'center',
+  justifyContent: 'center',
     marginLeft: 15
   },
   buttonGroup: {
@@ -3047,52 +3053,51 @@ export const stylesMostrarF = StyleSheet.create({
     backgroundColor: '#fff',
     elevation: 10,
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    backgroundColor: '#fff',
-    width: isSmallDevice ? '90%' : '95%',
-    borderRadius: 15,
-    padding: 10,
-    alignItems: 'center',
-    elevation: 5,
-  },
-  modalImage: {
-    width: '100%',
-    height: isSmallDevice ? (width - 150) : (width - 200),
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-  },
-  modalTitle: {
-    fontSize: isSmallDevice ? 20 : 24,
-    fontWeight: 'bold',
-    color: '#4caf50',
-    textAlign: 'center',
-  },
-  modalDescriptionContainer: {
-    maxHeight: 350,
-    marginVertical: 10,
-  },
-  modalDescription: {
-    fontSize: isSmallDevice ? 14 : 16,
-    color: '#333',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   buttonContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 5,
+    justifyContent: 'center',  // Asegura que los items están centrados verticalmente
+    marginLeft: 5, // Espacio entre el icono y el texto
   },
+  
+
+    modalContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+      backgroundColor: '#fff',
+      width: '100%', // Para cubrir toda la pantalla
+      height: '100%', // Para cubrir toda la pantalla
+      padding: 10,
+      alignItems: 'center',
+    },
+    modalImage: {
+      width: '100%',
+      height: isSmallDevice ? (width - 200) : (width - 200), // Ajusta según sea necesario
+    },
+    modalTitle: {
+      fontSize: isSmallDevice ? 24 : 28, // Aumentar el tamaño de la fuente
+      fontWeight: 'bold',
+      color: '#46741e',
+      textAlign: 'center',
+      marginBottom: 10, // Agrega margen para separar del imagen
+    },
+    modalDescription: {
+      fontSize: isSmallDevice ? 16 : 18, // Aumentar el tamaño de la fuente
+      color: '#333',
+      marginBottom: 20,
+      textAlign: 'center',
+    },
+    contentContainer: {
+      padding: 16, // Agrega un padding interno
+      alignItems: 'center', // Centra los elementos horizontalmente
+    },
+    
+
+  
 });
 
 export const stylesNabvarUp = StyleSheet.create({
